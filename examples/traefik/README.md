@@ -1,6 +1,6 @@
 # Traefik example
 
-Host the docker registry ui behind [traefik](http://traefik.io) with Docker Swarm mode.
+Host the Superslash Docker Registry Center behind [traefik](http://traefik.io) with Docker Swarm mode.
 
 ## How to run
 

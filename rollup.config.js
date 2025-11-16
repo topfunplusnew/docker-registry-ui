@@ -48,6 +48,7 @@ const plugins = [
       { src: 'src/fonts', dest: `${output}` },
       { src: '.version.json', dest: `${output}`, rename: 'version.json' },
       { src: 'src/images/*', dest: `${output}/images`, transform: copyTransform },
+      { src: 'src/images/favicon.ico', dest: `${output}`, rename: 'favicon.ico' },
     ],
   }),
 ];

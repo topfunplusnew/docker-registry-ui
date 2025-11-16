@@ -4,17 +4,17 @@ In this example, we'll see how to configure your keycloak server and use token a
 
 ![token protocol](https://docs.docker.com/registry/spec/images/v2-registry-auth.png)
 
-In this image, we will replace the docker client/daemon by the Docker Registry UI. Here are the steps:
+In this image, we will replace the docker client/daemon by the Superslash Docker Registry Center. Here are the steps:
 
 1. Attempt to get a resource (catalog, image info, image delete) with the registry.
 2. If the registry requires authorization it will return a `401 Unauthorized` HTTP response with information on how to authenticate.
-3. The **docker registry ui** makes a request to **keycloak** for a Bearer token.
+3. The **Superslash Docker Registry Center** makes a request to **keycloak** for a Bearer token.
     1. Your browser will use the [Basic Access Authentication Protocol](https://en.wikipedia.org/wiki/Basic_access_authentication#Protocol). But keycloak does not support this protocol... That's why we need a nginx proxy on top of keycloak.
     2. Your proxy will receive a request on `/auth/realms/{realm name}/protocol/docker-v2/auth` without `Authentication` header. It will return a `401 Unauthorized` HTTP response with `WWW-Authenticate` header.
     3. Your browser will ask you your credentials.
     4. The proxy will pass the credentials to keycloak.
 4. Keycloak returns an opaque Bearer token representing the client’s authorized access.
-5. The **docker registry ui** retries the original request with the Bearer token embedded in the request’s Authorization header.
+5. The **Superslash Docker Registry Center** retries the original request with the Bearer token embedded in the request’s Authorization header.
 6. The Registry authorizes the client by validating the Bearer token and the claim set embedded within it and begins the session as usual.
 
 :warning: If you are configuring from scratch your own keycloak server, remove files in `data` folder first with certificates in `conf/registry/localhost.*` 
@@ -145,7 +145,7 @@ auth:
     rootcertbundle: /etc/docker/registry/localhost_trust_chain.pem
 ```
 
-Now you can start your docker registry with your docker registry ui.
+Now you can start your docker registry with your Superslash Docker Registry Center.
 
 ```sh
 docker-compose up -d registry ui

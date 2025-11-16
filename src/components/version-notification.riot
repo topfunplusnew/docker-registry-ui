@@ -3,7 +3,7 @@
   <material-popup opened="{ state.open }" onClick="{ onClose }">
     <div class="material-popup-title">Check for updates</div>
     <div class="material-popup-content">
-      <p>The version <b>{ state.tag_name }</b> of Docker Registry UI now available.</p>
+      <p>The version <b>{ state.tag_name }</b> of Superslash Docker Registry Center now available.</p>
       <p>You can download the lastest version with docker.</p>
       <code>joxit/docker-registry-ui:{ state.tag_name }</code>
     </div>
@@ -68,7 +68,7 @@
           if (this.status === 200) {
             const latest = parseJSON(this.responseText);
             if (latest && self.tag_name !== latest.tag_name && !isNewestVersion(props.version, latest.tag_name)) {
-              props.onNotify('A new version of Docker Registry UI is available!');
+              props.onNotify('A new version of Superslash Docker Registry Center is available!');
             }
             localStorage.setItem(LATEST, this.responseText);
             self.update({ tag_name: latest.tag_name, latest });
@@ -77,7 +77,7 @@
             props.onNotify('Cannot check for new updates. Will try again in 24 hours. See the browser console.');
 
             console.error(
-              `Cannot check for new Docker Registry UI updates. This is most likely a GitHub issue. You don't need to worry about it.`
+              `Cannot check for new Superslash Docker Registry Center updates. This is most likely a GitHub issue. You don't need to worry about it.`
             );
 
             console.error(`Got status code ${this.status} from Github API with response ${this.responseText}`);

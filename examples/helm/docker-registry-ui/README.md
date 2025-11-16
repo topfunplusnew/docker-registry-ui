@@ -16,7 +16,7 @@ helm repo add joxit https://helm.joxit.dev
 helm search repo joxit/docker-registry-ui
 ```
 
-3. Now you're ready to install the Docker Registry UI! To install Docker Registry UI with the default configuration using Helm 3.2 run the following command below. This will deploy the Docker Registry UI on the default namespace.
+3. Now you're ready to install the Superslash Docker Registry Center! To install Superslash Docker Registry Center with the default configuration using Helm 3.2 run the following command below. This will deploy the Superslash Docker Registry Center on the default namespace.
 
 ```
 helm upgrade --install docker-registry-ui joxit/docker-registry-ui

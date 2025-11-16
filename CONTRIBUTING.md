@@ -1,6 +1,6 @@
 # How to contribute to Docke Registry UI
 
-I ([Jones Magloire](https://joxit.dev/)) created the Docker Registry UI from scratch, but I can't succeed without contributions from community members like you! Contributions come in many different shapes and sizes. In this file we provide guidance around two of the most common types of contributions: opening issues and opening pull requests.
+I ([Jones Magloire](https://joxit.dev/)) created the Superslash Docker Registry Center from scratch, but I can't succeed without contributions from community members like you! Contributions come in many different shapes and sizes. In this file we provide guidance around two of the most common types of contributions: opening issues and opening pull requests.
 
 Please read also the [Code Of Conduct](https://github.com/Joxit/docker-registry-ui/blob/main/CODE_OF_CONDUCT.md).
 
@@ -14,7 +14,7 @@ Please read also the [Code Of Conduct](https://github.com/Joxit/docker-registry-
   * Use the [**Bug Report Template**](https://github.com/Joxit/docker-registry-ui/issues/new?assignees=&labels=&template=bug_report.md&title=)
   * Include a **title and clear description**
   * Write as much relevant information as possible
-  * Add your **full configuration** (Docker Registry UI **AND** Docker Server) or a **screenshots** demonstrating the expected behavior that is not occurring
+  * Add your **full configuration** (Superslash Docker Registry Center **AND** Docker Server) or a **screenshots** demonstrating the expected behavior that is not occurring
 
 ## Submitting Pull Request
 
@@ -34,7 +34,7 @@ Please read also the [Code Of Conduct](https://github.com/Joxit/docker-registry-
 
 ### Did you fix whitespace, format code, or make a purely cosmetic patch?
 
-Changes that are cosmetic in nature and do not add anything substantial to the stability, functionality, or testability of Docker Registry UI will generally not be accepted.
+Changes that are cosmetic in nature and do not add anything substantial to the stability, functionality, or testability of Superslash Docker Registry Center will generally not be accepted.
 
 ## Coding conventions
 

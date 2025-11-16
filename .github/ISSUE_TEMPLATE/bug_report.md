@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-Hi, I use this docker registry UI and I have an issue...
+Hi, I use this Superslash Docker Registry Center and I have an issue...
 
 ## Bug description
 
@@ -46,11 +46,11 @@ If applicable, add screenshots to help explain your problem.
 - Browser:
     - Name: [e.g. Chrome, Firefox...]
     - Version: [e.g. 114.0.5735.198, 102.11.0...]
-- Docker registry UI:
+- Superslash Docker Registry Center:
     - Version: [e.g. 2.5.0, 2.6.0-84b31f2cfb...]
     - Server: [docker or dist]
     - Docker version: [e.g. 24.0.4...]
-    - Docker registry ui tag: [latest, main, 2.5.0, 2...]
+    - Superslash Docker Registry Center tag: [latest, main, 2.5.0, 2...]
     - OS/Arch: [e.g. linux/amd64]
     - Tools: [e.g. docker-compose, kubernetes, electron..]
 
