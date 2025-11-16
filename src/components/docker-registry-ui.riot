@@ -18,6 +18,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
   <header>
     <material-navbar>
       <span class="logo">
+        <img class="logo-icon" src="images/logo.svg" alt="Docker Registry UI Logo" />
         <span><a href="{ router.home() }">{ props.dockerRegistryUiTitle.trim() || "Docker Registry UI" }</a></span>
         <version-notification
           if="{ falsy(props.enableVersionNotification) }"
@@ -303,9 +304,12 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
     material-navbar .nav-wrapper .logo a {
       text-decoration: none;
+      color: var(--header-text);
+      transition: opacity 0.2s ease;
     }
     material-navbar .nav-wrapper .logo a:hover {
-      text-decoration: underline;
+      opacity: 0.9;
+      text-decoration: none;
     }
 
     material-footer {

@@ -72,6 +72,13 @@ pagination .container {
   margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(79, 24, 126, 0.1), 0 1px 3px rgba(79, 24, 126, 0.08);
+  transition: box-shadow 0.3s ease;
+}
+
+material-card:hover,
+material-tabs:hover {
+  box-shadow: 0 4px 12px rgba(79, 24, 126, 0.15), 0 2px 4px rgba(79, 24, 126, 0.1);
 }
 
 material-card,
@@ -87,11 +94,12 @@ catalog {
 
 material-tabs {
   display: block;
-  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-  -ms-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-  -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-  -o-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 8px rgba(79, 24, 126, 0.1), 0 1px 3px rgba(79, 24, 126, 0.08);
+  transition: box-shadow 0.3s ease;
+}
+
+material-tabs:hover {
+  box-shadow: 0 4px 12px rgba(79, 24, 126, 0.15), 0 2px 4px rgba(79, 24, 126, 0.1);
 }
 
 material-tabs material-button,
@@ -110,17 +118,36 @@ material-spinner {
 }
 
 .logo {
-  padding: 0 16px 0 72px;
+  padding: 0 16px 0 16px;
   text-decoration: none;
   font-size: 20px;
   line-height: 1;
   letter-spacing: 0.02em;
   font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.logo-icon:hover {
+  transform: scale(1.1);
 }
 
 @media screen and (max-width: 600px) {
   .logo {
-    padding-left: 0;
+    padding-left: 8px;
+    gap: 8px;
+  }
+  .logo-icon {
+    width: 32px;
+    height: 32px;
   }
 }
 
@@ -146,8 +173,9 @@ h2 {
 }
 
 .list.highlight:hover {
-  background-color: rgba(0, 0, 0, 0.12);
+  background-color: var(--hover-background);
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .list > span,
@@ -231,11 +259,12 @@ material-card table {
   width: 100%;
   border: none;
   position: relative;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(79, 24, 126, 0.15);
   border-collapse: collapse;
   white-space: nowrap;
   font-size: 13px;
-  border: none;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 material-card table th {
@@ -247,6 +276,7 @@ material-card table th {
   box-sizing: border-box;
   padding: 0 18px 12px 18px;
   text-align: right;
+  font-weight: 500;
 }
 
 .material-card-th-left {
@@ -255,7 +285,7 @@ material-card table th {
 
 material-card .material-card-title-action material-button:hover button,
 material-card table tbody tr:hover {
-  background-color: rgba(0, 0, 0, 0.12) !important;
+  background-color: var(--hover-background) !important;
 }
 
 material-button > :first-child[inverted='true'],
@@ -274,8 +304,8 @@ material-card table td {
   font-size: 16px;
   position: relative;
   height: 48px;
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  border-top: 1px solid rgba(79, 24, 126, 0.1);
+  border-bottom: 1px solid rgba(79, 24, 126, 0.1);
   padding: 12px 18px;
   box-sizing: border-box;
   vertical-align: middle;
@@ -312,6 +342,11 @@ material-card table th.material-card-th-sorted-descending:before {
 material-button .content i.material-icons,
 .material-icons {
   color: var(--neutral-text);
+  transition: color 0.2s ease;
+}
+
+material-button:hover .content i.material-icons {
+  color: var(--accent-text);
 }
 
 material-button[disabled] .content i.material-icons,
@@ -455,8 +490,10 @@ material-checkbox.indeterminate .checkbox.checked .checkmark {
 
 material-checkbox .checkbox {
   border-color: var(--neutral-text);
+  transition: all 0.2s ease;
 }
 
 material-checkbox .checkbox.checked {
-  background-color: var(--neutral-text);
+  background-color: var(--accent-text);
+  border-color: var(--accent-text);
 }

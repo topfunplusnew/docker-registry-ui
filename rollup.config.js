@@ -6,6 +6,9 @@ import { emptyDirectories } from 'rollup-plugin-app-utils';
 import { babel } from '@rollup/plugin-babel';
 import scss from 'rollup-plugin-scss';
 import serve from 'rollup-plugin-serve';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import html from '@rollup/plugin-html';
 import htmlUseref from './rollup/html-useref.js';
 import json from '@rollup/plugin-json';
@@ -50,7 +53,81 @@ const plugins = [
 ];
 
 if (useServe) {
-  plugins.push(serve({ host: 'localhost', port: 8000, contentBase: [output, './'] }));
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+  const outputPath = path.resolve(__dirname, output);
+
+  // Registry 代理目标（可以通过环境变量配置）
+  const REGISTRY_URL = process.env.REGISTRY_URL || 'https://registry.superslash.cn';
+
+  // 添加开发服务器（带代理功能）
+  plugins.push(
+    serve({
+      host: 'localhost',
+      port: 8000,
+      contentBase: [outputPath, __dirname],
+      onListening: function (server) {
+        // 设置代理
+        const proxyMiddleware = createProxyMiddleware({
+          target: REGISTRY_URL,
+          changeOrigin: true,
+          secure: true,
+          logLevel: 'info',
+          onProxyReq: (proxyReq, req, res) => {
+            const targetUrl = new URL(REGISTRY_URL);
+            proxyReq.setHeader('Host', targetUrl.host);
+            console.log(`[Proxy] ${req.method} ${req.url} -> ${REGISTRY_URL}${req.url}`);
+          },
+          onProxyRes: (proxyRes, req, res) => {
+            proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+            proxyRes.headers['Access-Control-Allow-Methods'] = 'HEAD, GET, OPTIONS, DELETE';
+            proxyRes.headers['Access-Control-Allow-Headers'] = 'Authorization, Accept, Cache-Control';
+            proxyRes.headers['Access-Control-Expose-Headers'] = 'Docker-Content-Digest';
+            proxyRes.headers['Access-Control-Allow-Credentials'] = 'true';
+          },
+          onError: (err, req, res) => {
+            console.error('[Proxy Error]', err.message);
+            if (!res.headersSent) {
+              res.writeHead(500, { 'Content-Type': 'text/plain' });
+              res.end('Proxy error: ' + err.message);
+            }
+          },
+        });
+
+        // 拦截 /v2 路径的请求
+        // 保存原始的 request 监听器
+        const originalListeners = server.listeners('request').slice();
+        server.removeAllListeners('request');
+
+        // 添加我们的代理处理器（必须在最前面）
+        server.on('request', (req, res) => {
+          if (req.url && req.url.startsWith('/v2')) {
+            return proxyMiddleware(req, res, () => {
+              // 如果代理失败，调用原始处理器
+              originalListeners.forEach((listener) => {
+                try {
+                  listener(req, res);
+                } catch (e) {
+                  console.error('[Proxy] Error in original listener:', e);
+                }
+              });
+            });
+          }
+          // 非 /v2 请求，使用原始处理器
+          originalListeners.forEach((listener) => {
+            try {
+              listener(req, res);
+            } catch (e) {
+              console.error('[Proxy] Error in original listener:', e);
+            }
+          });
+        });
+
+        console.log(`[Dev Server] Running on http://localhost:8000`);
+        console.log(`[Dev Proxy] Registry proxy: /v2 -> ${REGISTRY_URL}/v2`);
+      },
+    }),
+  );
 } else {
   plugins.push(terser({ format: { preamble: license } }));
 }
@@ -67,7 +144,7 @@ export default [
     plugins: [emptyDirectories(output)].concat(
       plugins,
       html({ template: () => htmlUseref('./src/index.html', { developement: useServe, production: !useServe }) }),
-      checkOutput(output)
+      checkOutput(output),
     ),
   },
 ];
